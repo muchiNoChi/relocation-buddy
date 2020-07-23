@@ -11,8 +11,14 @@
     "express:run": "vue-cli-service express:run"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/vue-fontawesome": "^0.1.10",
+    "buefy": "^0.8.20",
     "core-js": "^3.6.5",
+    "node-fetch": "^2.6.0",
     "vue": "^2.6.11",
+    "vue-i18n": "^8.18.2",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {

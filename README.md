@@ -1,5 +1,7 @@
 # relocation-buddy
 
+A small tool to help people find the office of The Company they will be happy to work at.
+
 ## Project setup
 ```
 npm install
@@ -27,3 +29,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+# Notes:
+
+* using Fetch API, won't support IE
+* need wrapper for Fetch to handle error statuses and return response json

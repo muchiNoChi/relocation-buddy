@@ -1,12 +1,9 @@
 <template>
   <div id="app">
-    <div id="nav">
-      Icon:
-      <font-awesome-icon icon="user-secret" />
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <button class="button">
+      <router-link to="/office/amsterdam">About</router-link>
+    </button>
+    <router-view />
   </div>
 </template>
 

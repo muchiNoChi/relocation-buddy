@@ -1,18 +1,18 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <MainView msg="Welcome to Your Vue.js App"/>
+    <!-- <home msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import MainView from '@/components/MainView.vue';
+// import officeDetails from '@/components/office-details.vue';
 
 export default {
-  name: 'Home',
+  name: 'home',
   components: {
-    MainView,
+    // officeDetails,
   },
 };
 </script>

@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
-import MainView from '@/components/MainView.vue';
+import MainView from '@/components/main-view.vue';
 
-describe('MainView.vue', () => {
+describe('main-view.vue', () => {
   it('renders props.msg when passed', () => {
     const msg = 'new message';
     const wrapper = shallowMount(MainView, {

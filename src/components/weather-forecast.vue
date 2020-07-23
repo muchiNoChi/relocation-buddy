@@ -1,5 +1,7 @@
 <template>
   <div>
+    Icon:
+    <font-awesome-icon icon="user-secret" />
     <b-field label="From">
       <b-datepicker v-model="dateFrom" :first-day-of-week="1" placeholder="Click to select...">
         <button class="button is-primary" @click="dateFrom = new Date()">
@@ -55,10 +57,9 @@
 
 <script>
 export default {
-  // TODO Solve linting issue
-  name: 'MainView',
+  name: 'office-details',
   props: {
-    msg: String,
+    office: String,
   },
   data() {
     return {
@@ -81,15 +82,15 @@ export default {
     },
 
     async getForecast() {
-      this.forecast = {'a': 'b'};
+      this.forecast = { a: 'b' };
     },
 
     async getAmsterdamCurrentWeather() {
-      this.currentWeather = {'c': 'd'};
+      this.currentWeather = { c: 'd' };
     },
 
     async getFlightsMunichAmsterdam() {
-      this.flights = [{'a': 'b'}, {'c': 'd'}, {'k': 'l'}];
+      this.flights = [{ a: 'b' }, { c: 'd' }, { k: 'l' }];
     },
   },
 };

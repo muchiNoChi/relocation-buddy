@@ -1,18 +1,71 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <!-- <home msg="Welcome to Your Vue.js App"/> -->
+  <div>
+    The Company
+    <span>Find the place you were always looking for</span>
+    <a href="#office_list" class="button">
+      See offices
+    </a>
+    <a id="office_list"></a>
+    <div>Offices list</div>
+    <div v-for="office in offices" :key="office.locationName">
+        <b-button @click="goToOfficeDetails(office)">{{ office.locationName }}</b-button>
+        <div>{{ office.currentWeather }}</div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import officeDetails from '@/components/office-details.vue';
-
 export default {
   name: 'home',
-  components: {
-    // officeDetails,
+  data() {
+    return {
+      offices: [],
+    };
+  },
+  methods: {
+    goToOfficeDetails(office) {
+      this.$router.push({
+        name: 'office-details',
+        params: { office, name: office.locationName },
+      });
+    },
+  },
+  computed: {
+    // f() {},
+  },
+  created() {
+    this.offices = [
+      {
+        locationName: 'Amsterdam',
+        locationCode: 'AMS',
+        locationKey: 249758,
+        currentWeather: {
+          weatherText: 'Mostly cloudy',
+          weatherIcon: 6,
+          temperature: 17.8,
+        },
+      },
+      {
+        locationName: 'Madrid',
+        locationCode: 'MAD',
+        locationKey: 308526,
+        currentWeather: {
+          weatherText: 'Sunny',
+          weatherIcon: 1,
+          temperature: 34.2,
+        },
+      },
+      {
+        locationName: 'Budapest',
+        locationCode: 'BUD',
+        locationKey: 187423,
+        currentWeather: {
+          weatherText: 'Rain',
+          weatherIcon: 18,
+          temperature: 21.1,
+        },
+      },
+    ];
   },
 };
 </script>

@@ -34,3 +34,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 * using Fetch API, won't support IE
 * need wrapper for Fetch to handle error statuses and return response json
+* i18n
+* compare weather and flight costs with other offices (e.g. 'warmer than in Amsterdam', 'colder than in Madrid', 'flights are cheaper in Budapest' etc.)
+* map with offices: 1) google my map - static, points are set by owner, 2) google maps API - dynamic from location search response coords
+* currency - support different, add conversion field for flights to show several prices (API supports that)
+* temperature - support C and F

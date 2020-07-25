@@ -41,8 +41,11 @@ Refresh information from the AccuWeather APIs for your device based upon the cac
 
 ### Kiwi API
 ```
-* POST https://api.skypicker.com/flights_multi{?partner,locale,curr}
-body: fly_from* fly_to? v=3 date_from* date_to* curr?=EUR locale?=en
-response header Content-Encoding: gzip
+Serach API
+* GET https://api.skypicker.com/flights?
+Header: 'Content-Type': 'application/json' (as in others)
 Use the parameter partner=picky for testing your implementation (see flights API URL parameters)
+
+Locations API
+* GET https://api.skypicker.com/locations?
 ```

@@ -1,5 +1,5 @@
-import { env } from 'process';
-import * as fetch from 'node-fetch';
+const { env } = require('process');
+const fetch = require('node-fetch');
 
 const API_KEY = env.API_KEY;
 
@@ -11,7 +11,7 @@ async function getLocationKey() {
     apikey: API_KEY, 
     q: 'Amsterdam',
   }).toString();
-  return await fetch(url.toString(), {
+  return fetch(url.toString(), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -19,6 +19,7 @@ async function getLocationKey() {
       },
     });
 }
+exports.getLocationKey = getLocationKey;
 
 function getForecast() {
   return true;
@@ -26,8 +27,4 @@ function getForecast() {
 
 function getCurrentWeather() {
   return true;
-}
-
-export default {
-  getLocationKey,
 }

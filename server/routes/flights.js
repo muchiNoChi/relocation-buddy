@@ -1,8 +1,10 @@
-import express from 'express';
-import flightsService from '../services/flightsService';
+const express = require('express');
+const flightsService = require('../services/flightsService').default;
 
-export const router = express.Router();
+const router = express.Router();
 
-router.get('/info', function (req, res) {
-    flightsService.getFlights(req.place, response.dataResponse(res));
+router.get('/info', (req, res) => {
+  flightsService.getFlights(req.place, res.dataResponse(res));
 });
+
+exports.router = router;

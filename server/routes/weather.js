@@ -1,8 +1,10 @@
-import express from 'express';
-import weatherService from '../services/weatherService';
+const express = require('express');
+const weatherService = require('../services/weatherService').default;
 
-export const router = express.Router();
+const router = express.Router();
 
 router.get('/locationKey', function (req, res) {
     weatherService.getLocationKey(req.place, response.dataResponse(res));
 });
+
+exports.router = router;

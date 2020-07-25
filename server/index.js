@@ -1,15 +1,13 @@
-'use strict';
+const historyFallback = require('connect-history-api-fallback');
 
-import historyFallback from 'connect-history-api-fallback';
+const { router: weather } = require('./routes/weather');
+const { router: flights } = require('./routes/flights');
 
-import { router as weather } from './routes/weather';
-import { router as flights } from './routes/flights';
-
-export default (app, http) => {
+exports.default = (app) => {
   // app.use(express.json());
 
   app.use(historyFallback());
 
   app.use('/weather', weather);
   app.use('/flights', flights);
-}
+};

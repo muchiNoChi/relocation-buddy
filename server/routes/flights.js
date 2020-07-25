@@ -1,10 +1,15 @@
 const express = require('express');
-const flightsService = require('../services/flightsService').default;
+const flightsService = require('../services/flightsService');
 
 const router = express.Router();
 
-router.get('/info', (req, res) => {
-  flightsService.getFlights(req.place, res.dataResponse(res));
+router.get('/info', (req, res, next) => {
+  flightsService.getFlights().then(info => res.json(info)).catch(next);
+});
+
+router.get('/locations', (req, res, next) => {
+  flightsService.getFlightLocations(req.params.query)
+    .then(locations => res.json(locations)).catch(next);
 });
 
 exports.router = router;

@@ -99,61 +99,23 @@ export default {
     },
   },
   methods: {
-    getWeatherForecast() {
+    async getWeatherForecast() {
       this.loading = true;
-      this.weatherForecast = [
-        {
-          date: '2020-07-24T07:00:00+02:00',
-          weatherText: 'Mostly cloudy w/ t-storms',
-          weatherIcon: 16,
-          temperature: 20,
-        },
-        {
-          date: '2020-07-25T07:00:00+02:00',
-          weatherText: 'Thunderstorms',
-          weatherIcon: 15,
-          temperature: 21,
-        },
-        {
-          date: '2020-07-26T07:00:00+02:00',
-          weatherText: 'Mostly cloudy w/ showers',
-          weatherIcon: 13,
-          temperature: 20,
-        },
-        {
-          date: '2020-07-27T07:00:00+02:00',
-          weatherText: 'Intermittent clouds',
-          weatherIcon: 4,
-          temperature: 20,
-        },
-        {
-          date: '2020-07-28T07:00:00+02:00',
-          weatherText: 'Mostly cloudy w/ t-storms',
-          weatherIcon: 16,
-          temperature: 21,
-        },
-      ];
+      // TODO move all REST calls to services
+      this.weatherForecast = await fetch(`/weather/forecast/${this.office.locationKey}`).then(res => res.json());
       this.loading = false;
     },
 
-    getFlightLocations() {
+    async getFlightLocations(query) {
       this.loading = true;
-      this.flightLocations = ['DUB', 'KEK', 'VNO'];
+      // encode URI component if troubles with space chars
+      this.flightLocations = await fetch(`/flights/locations?query=${query}`).then(res => res.json());
       this.loading = false;
     },
 
-    getFlightOptions() {
+    async getFlightOptions() {
       this.loading = true;
-      this.flightOptions = [
-        {
-          cityFrom: 'Madrid',
-          cityTo: 'Vilnius',
-          dTimeUTC: 1599133800,
-          aTimeUTC: 1599165900,
-          fly_duration: '8h 55m',
-          price: 37,
-        },
-      ];
+      this.flightOptions = await fetch('/flights/info').then(res => res.json());
       this.loading = false;
     },
   },

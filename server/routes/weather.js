@@ -1,10 +1,11 @@
 const express = require('express');
-const weatherService = require('../services/weatherService').default;
+const weatherService = require('../services/weatherService');
 
 const router = express.Router();
 
-router.get('/locationKey', function (req, res) {
-    weatherService.getLocationKey(req.place, response.dataResponse(res));
+router.get('/forecast/:locationKey', (req, res, next) => {
+  weatherService.getForecast(req.params.locationKey)
+    .then(forecast => res.json(forecast)).catch(next);
 });
 
 exports.router = router;

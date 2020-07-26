@@ -149,7 +149,7 @@ export default {
       // TODO move all REST calls to services
       this.city = await fetchData(`/cities/info/${this.name}`);
       const citySection = document.getElementById('city-title-section');
-      citySection.setAttribute('background', `url('../assets/${this.city.name}.jpg') center center`);
+      citySection.style.background = `url("../assets/${this.name}.jpg")`;
       this.loading = true;
     },
 
@@ -179,6 +179,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#city-title-section {
+  background-size: cover !important;
+}
+
 .weather, .flights {
   height: 600px;
 

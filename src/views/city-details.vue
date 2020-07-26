@@ -25,7 +25,7 @@
         is-2-fullhd">
         <!-- WEATHER SECTION -->
         <section class="column weather">
-          <article class="tile is-child box">
+          <article class="tile is-child box is-light">
             <p class="title">Weather Forecast</p>
             <b-button type="is-dark" outlined expanded @click="getWeatherForecast()">
               Show 5 days forecast
@@ -36,14 +36,14 @@
                 v-for="day in weatherForecast"
                 :key="day.date">
                 <div class="tile is-child box">
-                  <div class="level">
-                    <div class="level-left">
+                  <div class="level columns is-mobile">
+                    <div class="level-left column has-text-left">
                       <strong>{{ day.date }}</strong>
+                      <div>{{ day.weatherText }}</div>
                       <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
                     </div>
                     <div class="level-right level">
-                      <span class="tag is-success">{{ day.temperature }}°C</span>
-                      <span class="level-left">{{ day.weatherText }}</span>
+                      <span class="tag is-light">{{ day.temperature }}°C</span>
                       <p class="image is-64x64 level-right">
                         <img :src="'../assets/' + day.weatherIcon + '.png'" />
                       </p>
@@ -56,7 +56,7 @@
         </section>
         <!-- FLIGHTS SECTION -->
         <section class="column flights">
-          <article class="tile is-child box">
+          <article class="tile is-child box is-light">
             <p class="title">Flight Options</p>
             <p class="subtitle">Overview flight prices from {{ city.locationName }}</p>
             <div class="content">
@@ -92,12 +92,15 @@
                   :key="flight.id">
                   <div class="tile is-child box">
                     <div class="level">
-                      <div class="level-left">
-                        <span>{{ flight.cityFrom }} -> {{ flight.cityTo }}</span>
+                      <div class="level-left column has-text-left">
+                        <strong>{{ flight.cityFrom }} -> {{ flight.cityTo }}</strong>
+                        <div>
+                          Departure: {{ flight.dTimeUTC }}, Arrival: {{ flight.aTimeUTC }}
+                        </div>
+                        <i>({{ flight.fly_duration }})</i>
+                        <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
                       </div>
                       <div class="level-right level">
-                        <span>Departure: {{ flight.dTimeUTC }},
-                          Arrival: {{ flight.aTimeUTC }} ({{ flight.fly_duration }})</span>
                         <strong>{{ flight.price }} EUR</strong>
                       </div>
                     </div>
@@ -184,10 +187,11 @@ export default {
 }
 
 .weather, .flights {
-  height: 600px;
+  height: 750px;
 
   .box {
     height: 100%;
+    overflow: auto;
   }
 }
 </style>

@@ -3,12 +3,22 @@
 async function getFlights() {
   return [
     {
+      id: 1,
       cityFrom: 'Madrid',
       cityTo: 'Vilnius',
-      dTimeUTC: 1599133800,
-      aTimeUTC: 1599165900,
+      dTimeUTC: new Date(1599133800).toISOString(),
+      aTimeUTC: new Date(1599165900).toISOString(),
       fly_duration: '8h 55m',
       price: 37,
+    },
+    {
+      id: 2,
+      cityFrom: 'Madrid',
+      cityTo: 'Amsterdam',
+      dTimeUTC: new Date(1599133800).toISOString(),
+      aTimeUTC: new Date(1599165900).toISOString(),
+      fly_duration: '3h 20m',
+      price: 40,
     },
   ];
 }

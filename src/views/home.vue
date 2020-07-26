@@ -9,7 +9,11 @@
     <div>Offices list</div>
     <div v-for="office in offices" :key="office.locationName">
         <b-button @click="goToOfficeDetails(office)">{{ office.locationName }}</b-button>
-        <div>{{ office.currentWeather }}</div>
+        <div>
+          <span>{{ office.currentWeather.weatherText }}</span>
+          <span>{{ office.currentWeather.temperature }}C</span>
+          <span><img :src="'../assets/' + office.currentWeather.weatherIcon + '.png'" /></span>
+        </div>
     </div>
   </div>
 </template>

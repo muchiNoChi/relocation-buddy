@@ -30,7 +30,15 @@
             <b-button type="is-dark" outlined expanded @click="getWeatherForecast()">
               Show 5 days forecast
             </b-button>
-            <div class="container" v-if="weatherForecast.length">{{ weatherForecast }}</div>
+            <div class="container" v-if="weatherForecast.length">
+              <div v-for="day in weatherForecast" :key="day.date">
+                <div>
+                  <span>{{ day.weatherText }}</span>
+                  <span>{{ day.temperature }}C</span>
+                  <span><img :src="'../assets/' + day.weatherIcon + '.png'" /></span>
+                </div>
+              </div>
+            </div>
           </article>
         </section>
         <!-- FLIGHTS SECTION -->
@@ -64,7 +72,16 @@
               <b-button type="is-dark" outlined expanded @click="getFlightOptions()">
                 Show options
               </b-button>
-              <div class="container" v-if="flightOptions.length">{{ flightOptions }}</div>
+              <div class="container" v-if="flightOptions.length">
+                <div v-for="flight in flightOptions" :key="flight.id">
+                <div>
+                  <span>{{ flight.cityFrom }} -> {{ flight.cityTo }}</span>
+                  <span>Departure: {{ flight.dTimeUTC }},
+                    Arrival: {{ flight.aTimeUTC }} ({{ flight.fly_duration }})</span>
+                  <span>{{ flight.price }} EUR</span>
+                </div>
+              </div>
+              </div>
             </div>
           </article>
         </section>

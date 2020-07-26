@@ -1,24 +1,20 @@
 <template>
   <div id="app">
-    <b-navbar fixed-top class="has-background-primary">
+    <b-navbar fixed-top class="has-background-dark">
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
           <div class="title has-text-light">The Company</div>
         </b-navbar-item>
       </template>
-      <template slot="start">
-      </template>
-
-      <template slot="end">
-        <b-navbar-item tag="div">
-          <button class="button is-primary"
-            @click="showCallInfo = !showCallInfo">
-              Join us
-          </button>
-        </b-navbar-item>
-      </template>
     </b-navbar>
     <router-view />
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>Relocation Buddy</strong> by <a href="https://github.com/muchiNoChi">Aliaksandra Abramovich</a>.
+        </p>
+      </div>
+    </footer>
   </div>
 </template>
 

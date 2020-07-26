@@ -27,6 +27,10 @@ const router = new VueRouter({
   // remove # from URL
   mode: 'history',
   routes,
+  // always scroll to the tob of the page after routing
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
 });
 
 export default router;

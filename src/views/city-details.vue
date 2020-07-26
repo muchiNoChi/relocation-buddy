@@ -27,7 +27,7 @@
         <section class="column weather">
           <article class="tile is-child box">
             <p class="title">Weather Forecast</p>
-            <b-button type="is-primary" outlined expanded @click="getWeatherForecast()">
+            <b-button type="is-dark" outlined expanded @click="getWeatherForecast()">
               Show 5 days forecast
             </b-button>
             <div v-if="weatherForecast.length">
@@ -82,7 +82,7 @@
                   </b-datepicker>
                 </b-field>
               </div>
-              <b-button type="is-primary" outlined expanded @click="getFlightOptions()">
+              <b-button type="is-dark" outlined expanded @click="getFlightOptions()">
                 Show options
               </b-button>
               <div class="container" v-if="flightOptions.length">
@@ -113,6 +113,11 @@
 </template>
 
 <script>
+// TODO move to service together with REST calls
+async function fetchData(url, ...params) {
+  return fetch(url, params).then(res => res.json());
+}
+
 export default {
   name: 'city-details',
   props: {
@@ -142,7 +147,7 @@ export default {
     async getCityInfo() {
       this.loading = true;
       // TODO move all REST calls to services
-      this.city = await fetch(`/cities/info/${this.name}`).then(res => res.json());
+      this.city = await fetchData(`/cities/info/${this.name}`);
       const citySection = document.getElementById('city-title-section');
       citySection.setAttribute('background', `url('../assets/${this.city.name}.jpg') center center`);
       this.loading = true;
@@ -150,20 +155,20 @@ export default {
 
     async getWeatherForecast() {
       this.loading = true;
-      this.weatherForecast = await fetch(`/weather/forecast/${this.city.locationKey}`).then(res => res.json());
+      this.weatherForecast = await fetchData(`/weather/forecast/${this.city.locationKey}`);
       this.loading = false;
     },
 
     async getFlightLocations(query) {
       this.loading = true;
       // encode URI component if troubles with space chars
-      this.flightLocations = await fetch(`/flights/locations?query=${query}`).then(res => res.json());
+      this.flightLocations = await fetchData(`/flights/locations?query=${query}`);
       this.loading = false;
     },
 
     async getFlightOptions() {
       this.loading = true;
-      this.flightOptions = await fetch('/flights/info').then(res => res.json());
+      this.flightOptions = await fetchData('/flights/info');
       this.loading = false;
     },
   },

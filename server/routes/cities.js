@@ -8,7 +8,7 @@ router.get('/info', (req, res, next) => {
 });
 
 router.get('/info/:name', (req, res, next) => {
-  citiesService.getCitiy(req.params.name).then(info => res.json(info)).catch(next);
+  citiesService.getCity(req.params.name).then(info => res.json(info)).catch(next);
 });
 
 exports.router = router;

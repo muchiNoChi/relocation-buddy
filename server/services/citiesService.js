@@ -43,7 +43,7 @@ async function getCities() {
 
 async function getCity(name) {
   // arrray will be non-empty as city name belongs to city from cities list itself
-  return CITIES.find(city => city.locationName === name)[0];
+  return CITIES.find(city => city.locationName === name);
 }
 
 exports.getCities = getCities;

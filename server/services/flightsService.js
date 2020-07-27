@@ -23,10 +23,8 @@ async function getFlights(params) {
     sort: 'price',
     asc: 1,
   }).toString();
-  return fetchData(url).then(res => {
-    const data = res.data;
-    return (res.data || []).map((flight, idx) => ({ ...flight, id: idx }));
-  });
+  return fetchData(url)
+    .then(res => (res.data || []).map((flight, idx) => ({ ...flight, id: idx })));
 }
 
 async function getFlightLocations(term) {

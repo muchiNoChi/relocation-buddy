@@ -9,7 +9,7 @@
             {{ city.locationName }}
           </h1>
           <h2 class="subtitle has-text-light">
-            Welcome
+            {{ city.phoneNumber }}
           </h2>
         </div>
       </div>

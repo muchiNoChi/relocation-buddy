@@ -1,5 +1,6 @@
 const { env } = require('process');
-const fetch = require('node-fetch');
+const { fetchData } = require('./flightsService');
+const { response } = require('express');
 
 const { API_KEY } = env;
 
@@ -38,8 +39,21 @@ async function getForecast() {
   ];
 }
 
-function getCurrentWeather() {
-  return true;
+async function getCurrentWeather(locationKey) {
+  const url = new URL(`https://dataservice.accuweather.com/currentconditions/v1/${locationKey}`);
+  url.search = new URLSearchParams({
+    apikey: API_KEY,
+  }).toString();
+  return fetchData(url).then(res => {
+    const weather = res[0];
+    return {
+      weatherText: weather.WeatherText,
+      weatherIcon: weather.WeatherIcon,
+      // TODO add support of Imperial Units
+      temperature: weather.Temperature.Metric.Value,
+    };
+  });
 }
 
 exports.getForecast = getForecast;
+exports.getCurrentWeather = getCurrentWeather;

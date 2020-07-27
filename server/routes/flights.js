@@ -8,7 +8,7 @@ router.get('/info', (req, res, next) => {
 });
 
 router.get('/locations', (req, res, next) => {
-  flightsService.getFlightLocations(req.params.query)
+  flightsService.getFlightLocations(req.query.term)
     .then(locations => res.json(locations)).catch(next);
 });
 

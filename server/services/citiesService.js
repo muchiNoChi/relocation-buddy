@@ -1,3 +1,5 @@
+const { getCurrentWeather } = require('./weatherService');
+
 const CITIES = [
   {
     locationName: 'Amsterdam',
@@ -38,7 +40,10 @@ const CITIES = [
 ];
 
 async function getCities() {
-  return CITIES;
+  return Promise.all(CITIES.map(async city => ({
+    ...city,
+    currentWeather: await getCurrentWeather(city.locationKey),
+  })));
 }
 
 async function getCity(name) {

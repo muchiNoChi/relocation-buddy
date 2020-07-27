@@ -27,26 +27,29 @@
         <section class="column weather">
           <article class="tile is-child box is-light">
             <p class="title">Weather Forecast</p>
+            <p class="subtitle">Review weather forecast for {{ city.locationName }}</p>
             <b-button type="is-dark" outlined expanded @click="getWeatherForecast()">
               Show 5 days forecast
             </b-button>
             <div v-if="weatherForecast.length">
-              <div
-                class="tile is-parent"
-                v-for="day in weatherForecast"
-                :key="day.date">
-                <div class="tile is-child box">
-                  <div class="level columns is-mobile">
-                    <div class="level-left column has-text-left">
-                      <strong>{{ day.date }}</strong>
-                      <div>{{ day.weatherText }}</div>
-                      <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
-                    </div>
-                    <div class="level-right level">
-                      <span class="tag is-light">{{ day.temperature }}°C</span>
-                      <p class="image is-64x64 level-right">
-                        <img :src="'../assets/' + day.weatherIcon + '.png'" />
-                      </p>
+              <div class="data-container">
+                <div
+                  class="tile is-parent"
+                  v-for="day in weatherForecast"
+                  :key="day.date">
+                  <div class="tile is-child box">
+                    <div class="level columns is-mobile">
+                      <div class="level-left column has-text-left">
+                        <strong>{{ day.date }}</strong>
+                        <div>{{ day.weatherText }}</div>
+                        <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
+                      </div>
+                      <div class="level-right level">
+                        <span class="tag is-light">{{ day.temperature }}°C</span>
+                        <p class="image is-64x64 level-right">
+                          <img :src="'../assets/' + day.weatherIcon + '.png'" />
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -85,33 +88,35 @@
               <b-button type="is-dark" outlined expanded @click="getFlightOptions()">
                 Show options
               </b-button>
-              <div class="container" v-if="flightOptions.length">
-                <div
-                  class="tile is-parent"
-                  v-for="flight in flightOptions"
-                  :key="flight.id">
-                  <div class="tile is-child box">
-                    <div class="level">
-                      <div class="level-left column has-text-left">
-                        <strong>{{ flight.cityFrom }} -> {{ flight.cityTo }}</strong>
-                        <div>
-                          Departure: {{ flight.dTimeUTC }}, Arrival: {{ flight.aTimeUTC }}
+              <div class="data-container">
+                <!-- <div class="container" v-if="flightOptions.length"> -->
+                  <div
+                    class="tile is-parent"
+                    v-for="flight in flightOptions"
+                    :key="flight.id">
+                    <div class="tile is-child box">
+                      <div class="level">
+                        <div class="level-left column has-text-left">
+                          <strong>{{ flight.cityFrom }} -> {{ flight.cityTo }}</strong>
+                          <div>Departure: {{ flight.dTimeUTC }},</div>
+                          <div>Arrival: {{ flight.aTimeUTC }}</div>
+                          <i>({{ flight.fly_duration }})</i>
+                          <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
                         </div>
-                        <i>({{ flight.fly_duration }})</i>
-                        <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
-                      </div>
-                      <div class="level-right level">
-                        <strong>{{ flight.price }} EUR</strong>
+                        <div class="level-right level">
+                          <strong>{{ flight.price }} EUR</strong>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                <!-- </div> -->
               </div>
             </div>
           </article>
         </section>
       </div>
     </div>
+    <b-loading :active.sync="loading"></b-loading>
   </div>
 </template>
 
@@ -133,6 +138,7 @@ export default {
   data() {
     return {
       loading: false,
+      areOptionsFetching: false,
       city: {},
       weatherForecast: [],
       selectedCityTo: null,
@@ -143,7 +149,7 @@ export default {
   },
   computed: {
     isFetching() {
-      return this.loading;
+      return this.areOptionsFetching;
     },
   },
   methods: {
@@ -153,7 +159,7 @@ export default {
       this.city = await fetchData(`/cities/info/${this.name}`);
       const citySection = document.getElementById('city-title-section');
       citySection.style.background = `url("../assets/${this.name}.jpg")`;
-      this.loading = true;
+      this.loading = false;
     },
 
     async getWeatherForecast() {
@@ -162,11 +168,11 @@ export default {
       this.loading = false;
     },
 
-    async getFlightLocations(query) {
-      this.loading = true;
+    async getFlightLocations(term) {
+      this.areOptionsFetching = true;
       // encode URI component if troubles with space chars
-      this.flightLocations = await fetchData(`/flights/locations?query=${query}`);
-      this.loading = false;
+      this.flightLocations = await fetchData(`/flights/locations?term=${term}`);
+      this.areOptionsFetching = false;
     },
 
     async getFlightOptions() {
@@ -184,14 +190,5 @@ export default {
 <style scoped lang="scss">
 #city-title-section {
   background-size: cover !important;
-}
-
-.weather, .flights {
-  height: 750px;
-
-  .box {
-    height: 100%;
-    overflow: auto;
-  }
 }
 </style>

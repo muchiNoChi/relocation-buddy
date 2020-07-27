@@ -45,7 +45,8 @@
                         <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
                       </div>
                       <div class="level-right level">
-                        <span class="tag is-light">{{ day.temperature }}°C</span>
+                        <!-- TODO REQUEST DATA IN CELSIUS -->
+                        <span class="tag is-light">{{ day.temperature }}°F</span>
                         <p class="image is-64x64 level-right">
                           <img :src="'../assets/' + day.weatherIcon + '.png'" />
                         </p>

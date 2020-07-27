@@ -12,11 +12,7 @@
     "start": "node server/prod-server.js"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.30",
-    "@fortawesome/free-solid-svg-icons": "^5.14.0",
-    "@fortawesome/vue-fontawesome": "^0.1.10",
     "buefy": "^0.8.20",
-    "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "node-fetch": "^2.6.0",

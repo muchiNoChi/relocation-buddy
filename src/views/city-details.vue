@@ -5,7 +5,6 @@
       <div class="hero-body">
         <div class="container has-text-left">
           <h1 class="title has-text-light">
-            <!-- <font-awesome-icon icon="user-secret" /> -->
             {{ city.locationName }}
           </h1>
           <h2 class="subtitle has-text-light">

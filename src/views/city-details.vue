@@ -16,7 +16,7 @@
     </section>
 
     <div class="container city">
-      <div class="container city columns is-vcentered section
+      <div class="columns section
         is-variable
         is-1-mobile
         is-0-tablet
@@ -40,9 +40,8 @@
                   <div class="tile is-child box">
                     <div class="level columns is-mobile">
                       <div class="level-left column has-text-left">
-                        <strong>{{ day.date }}</strong>
+                        <strong>{{ day.date | formatLocaleDate }}</strong>
                         <div>{{ day.weatherText }}</div>
-                        <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
                       </div>
                       <div class="level-right level">
                         <!-- TODO REQUEST DATA IN CELSIUS -->
@@ -86,31 +85,36 @@
                   </b-datepicker>
                 </b-field>
               </div>
-              <b-button type="is-dark" outlined expanded @click="getFlightOptions()">
+              <b-button
+                type="is-dark"
+                outlined
+                expanded
+                :disabled="!areFightsParamsPresent"
+                @click="getFlightOptions()">
                 Show options
               </b-button>
               <div class="data-container">
-                <!-- <div class="container" v-if="flightOptions.length"> -->
-                  <div
-                    class="tile is-parent"
-                    v-for="flight in flightOptions"
-                    :key="flight.id">
-                    <div class="tile is-child box">
-                      <div class="level">
-                        <div class="level-left column has-text-left">
-                          <strong>{{ flight.cityFrom }} -> {{ flight.cityTo }}</strong>
-                          <div>Departure: {{ flight.dTimeUTC }},</div>
-                          <div>Arrival: {{ flight.aTimeUTC }}</div>
-                          <i>({{ flight.fly_duration }})</i>
-                          <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
-                        </div>
-                        <div class="level-right level">
-                          <strong>{{ flight.price }} EUR</strong>
-                        </div>
+                <div v-if="noFlightsFound" class="no-flights-tag tag is-warning">
+                  No flight options found for this route.
+                </div>
+                <div
+                  class="tile is-parent"
+                  v-for="flight in flightOptions"
+                  :key="flight.id">
+                  <div class="tile is-child box">
+                    <div class="level">
+                      <div class="level-left column has-text-left">
+                        <strong>{{ flight.cityFrom }} -> {{ flight.cityTo }}</strong>
+                        <div>Departure: {{ flight.dTimeUTC | formatUTCDate }},</div>
+                        <div>Arrival: {{ flight.aTimeUTC | formatUTCDate }}</div>
+                        <i>({{ flight.fly_duration }})</i>
+                      </div>
+                      <div class="level-right level tag is-success">
+                        {{ flight.price }} EUR
                       </div>
                     </div>
                   </div>
-                <!-- </div> -->
+                </div>
               </div>
             </div>
           </article>
@@ -136,6 +140,11 @@ export default {
       default: () => '',
     },
   },
+  filters: {
+    // formatting date to 'd/m/yyyy' format
+    formatLocaleDate: date => new Date(date).toLocaleDateString('en-MY'),
+    formatUTCDate: UTCdate => new Date(UTCdate * 1000).toLocaleDateString('en-MY'),
+  },
   data() {
     return {
       loading: false,
@@ -146,11 +155,15 @@ export default {
       flightLocations: [],
       flightOptions: [],
       flightDates: [],
+      noFlightsFound: false,
     };
   },
   computed: {
     isFetching() {
       return this.areOptionsFetching;
+    },
+    areFightsParamsPresent() {
+      return this.selectedCityTo && this.flightDates.length;
     },
   },
   methods: {
@@ -178,7 +191,11 @@ export default {
 
     async getFlightOptions() {
       this.loading = true;
-      this.flightOptions = await fetchData(`/flights/info?flyFrom=${this.city.locationCode}&flyTo=${this.selectedCityTo}&dateFrom=${this.flightDates[0]}&dateTo=${this.flightDates[1]}`);
+      const formattedDateFrom = this.$options.filters.formatLocaleDate(this.flightDates[0]);
+      const formattedDateTo = this.$options.filters.formatLocaleDate(this.flightDates[1]);
+      const url = `/flights/info?flyFrom=${this.city.locationCode}&flyTo=${this.selectedCityTo}&dateFrom=${formattedDateFrom}&dateTo=${formattedDateTo}`;
+      this.flightOptions = await fetchData(url);
+      this.noFlightsFound = !this.flightOptions.length;
       this.loading = false;
     },
   },
@@ -191,5 +208,9 @@ export default {
 <style scoped lang="scss">
 #city-title-section {
   background-size: cover !important;
+}
+
+.no-flights-tag {
+  margin-top: 20px;
 }
 </style>

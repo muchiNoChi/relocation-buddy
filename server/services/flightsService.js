@@ -24,7 +24,8 @@ async function getFlights(params) {
     asc: 1,
   }).toString();
   return fetchData(url).then(res => {
-    return res.data.map((flight, idx) => ({ ...flight, id: idx }));
+    const data = res.data;
+    return (res.data || []).map((flight, idx) => ({ ...flight, id: idx }));
   });
 }
 

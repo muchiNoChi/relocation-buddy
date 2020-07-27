@@ -22,6 +22,12 @@ async function getForecast(locationKey) {
     });
     return result;
   });
+  // For testing
+  // return [
+  //   {
+  //     date: '2020-07-24T07:00:00+02:00',
+  //   },
+  // ];
 }
 
 async function getCurrentWeather(locationKey) {

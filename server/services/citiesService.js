@@ -7,11 +7,6 @@ const CITIES = [
     locationKey: 249758,
     officesCount: 2,
     phoneNumber: '+31-655-5390-91',
-    currentWeather: {
-      weatherText: 'Mostly cloudy',
-      weatherIcon: 6,
-      temperature: 17.8,
-    },
   },
   {
     locationName: 'Madrid',
@@ -19,11 +14,6 @@ const CITIES = [
     locationKey: 308526,
     officesCount: 1,
     phoneNumber: '+34-655-5424',
-    currentWeather: {
-      weatherText: 'Sunny',
-      weatherIcon: 1,
-      temperature: 34.2,
-    },
   },
   {
     locationName: 'Budapest',
@@ -31,11 +21,6 @@ const CITIES = [
     locationKey: 187423,
     officesCount: 1,
     phoneNumber: '+36-205-5543-75',
-    currentWeather: {
-      weatherText: 'Rain',
-      weatherIcon: 18,
-      temperature: 21.1,
-    },
   },
 ];
 

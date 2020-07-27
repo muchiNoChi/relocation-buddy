@@ -39,4 +39,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * map with offices: 1) google my map - static, points are set by owner, 2) google maps API - dynamic from location search response coords
 * currency - support different, add conversion field for flights to show several prices (API supports that)
 * temperature - support C and F
-* add integration tests for api calls - 50 calls limit? are unit tests needed for this functionality?
+* add error handling with toasts on client side
+* for datepicker - add date-parcer for d/m/yyyy format

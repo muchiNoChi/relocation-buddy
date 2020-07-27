@@ -52,7 +52,7 @@ async function getForecast(locationKey) {
         weatherText: forecast.Day.IconPhrase,
         weatherIcon: forecast.Day.Icon,
         // TODO request temp in Celsius
-        temperature: forecast.Temperature.Maximum,
+        temperature: forecast.Temperature.Maximum.Value,
       };
     });
     return result;

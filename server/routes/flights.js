@@ -4,7 +4,7 @@ const flightsService = require('../services/flightsService');
 const router = express.Router();
 
 router.get('/info', (req, res, next) => {
-  flightsService.getFlights().then(info => res.json(info)).catch(next);
+  flightsService.getFlights(req.query).then(info => res.json(info)).catch(next);
 });
 
 router.get('/locations', (req, res, next) => {

@@ -177,7 +177,7 @@ export default {
 
     async getFlightOptions() {
       this.loading = true;
-      this.flightOptions = await fetchData('/flights/info');
+      this.flightOptions = await fetchData(`/flights/info?flyFrom=${this.city.locationCode}&flyTo=${this.selectedCityTo}&dateFrom=${this.flightDates[0]}&dateTo=${this.flightDates[1]}`);
       this.loading = false;
     },
   },

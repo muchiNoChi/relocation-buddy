@@ -5,42 +5,39 @@ async function fetchData(url, ...params) {
   return fetch(url, params).then(res => res.json());
 }
 
-async function getFlights() {
-  return [
-    {
-      id: 1,
-      cityFrom: 'Madrid',
-      cityTo: 'Vilnius',
-      dTimeUTC: new Date(1599133800).toISOString(),
-      aTimeUTC: new Date(1599165900).toISOString(),
-      fly_duration: '8h 55m',
-      price: 37,
-    },
-    {
-      id: 2,
-      cityFrom: 'Madrid',
-      cityTo: 'Amsterdam',
-      dTimeUTC: new Date(1599133800).toISOString(),
-      aTimeUTC: new Date(1599165900).toISOString(),
-      fly_duration: '3h 20m',
-      price: 40,
-    },
-    {
-      id: 3,
-      cityFrom: 'Madrid',
-      cityTo: 'Amsterdam',
-      dTimeUTC: new Date(1599133800).toISOString(),
-      aTimeUTC: new Date(1599165900).toISOString(),
-      fly_duration: '3h 20m',
-      price: 40,
-    },
-  ];
+async function getFlights(params) {
+  const url = new URL('https://api.skypicker.com/flights');
+  url.search = new URLSearchParams({
+    fly_from: params.flyFrom,
+    fly_to: params.flyTo,
+    date_from: params.dateFrom,
+    date_to: params.dateTo,
+    // TODO can extract this to client
+    max_fly_duration: 10,
+    adults: 1,
+    // TODO add currency switcher
+    curr: 'EUR',
+    partner: 'picky',
+    price_from: 1,
+    price_to: 1000,
+    sort: 'price',
+    asc: 1,
+  }).toString();
+  return fetchData(url).then(res => {
+    return res.data.map((flight, idx) => ({ ...flight, id: idx }));
+  });
 }
 
 async function getFlightLocations(term) {
-  return fetchData(`https://api.skypicker.com/locations?term=${term}&locale=en-US&location_types=airport&active_only=true&sort=name`).then(data => {
-    return data.locations && data.locations.map(location => location.id);
-  });
+  const url = new URL('https://api.skypicker.com/locations');
+  url.search = new URLSearchParams({
+    term,
+    locale: 'en-US',
+    location_types: 'airport',
+    active_only: true,
+    sort: 'name',
+  }).toString();
+  return fetchData(url).then(data => data.locations && data.locations.map(location => location.id));
 }
 
 exports.getFlights = getFlights;

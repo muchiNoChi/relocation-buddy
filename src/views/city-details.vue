@@ -41,7 +41,7 @@
                     <div class="level columns is-mobile">
                       <div class="level-left column has-text-left">
                         <strong>{{ day.date | formatLocaleDate }}</strong>
-                        <div>{{ day.weatherText }}</div>
+                        <div class="column">{{ day.weatherText }}</div>
                       </div>
                       <div class="level-right level">
                         <!-- TODO REQUEST DATA IN CELSIUS -->

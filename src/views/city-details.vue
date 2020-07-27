@@ -120,7 +120,7 @@
         </section>
       </div>
     </div>
-    <b-loading :active.sync="loading"></b-loading>
+    <!-- <b-loading :active.sync="loading"></b-loading> -->
   </div>
 </template>
 

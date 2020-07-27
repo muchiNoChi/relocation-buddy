@@ -30,14 +30,18 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-# Notes:
+# Technologies used:
+* Vue.js + Buefy for the client
+* Node.js + Express for the server
+* Fetch API for REST calls
+* Accuweather API for weather information
+* Kiwi API for flights information
 
-* using Fetch API, won't support IE
-* need wrapper for Fetch to handle error statuses and return response json
-* i18n
-* compare weather and flight costs with other offices (e.g. 'warmer than in Amsterdam', 'colder than in Madrid', 'flights are cheaper in Budapest' etc.)
-* map with offices: 1) google my map - static, points are set by owner, 2) google maps API - dynamic from location search response coords
-* currency - support different, add conversion field for flights to show several prices (API supports that)
-* temperature - support C and F
-* add error handling with toasts on client side
+# Further improvements:
+* i18n - package is added, but not currently being used, would be great to localize all messages
+* error handling - handle requests errors on server side and send appropriate error messages to client, then show toasts on client side
+* would be nice to compare weather and flight costs with other offices (e.g. 'warmer than in Amsterdam', 'colder than in Madrid', 'flights are cheaper in Budapest' etc.)
+* map with offices can be added: 1) google my map - static, points are set by owner, 2) google maps API - dynamic from location search response coords
+* currency - support different currency (switcher in header), add conversion field for flights to show several prices (API supports that)
+* temperature - support C and F (currently we show C on main page and F on details - would be great to have a switcher in header as well and show appropriate units)
 * for datepicker - add date-parcer for d/m/yyyy format

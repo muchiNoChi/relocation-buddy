@@ -45,3 +45,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * currency - support different currency (switcher in header), add conversion field for flights to show several prices (API supports that)
 * temperature - support C and F (currently we show C on main page and F on details - would be great to have a switcher in header as well and show appropriate units)
 * for datepicker - add date-parcer for d/m/yyyy format
+* probably add store or storage saving for currentWeather on home page not to reload current weather every time as Accuweather provides limited amount of REST calls per day (50).

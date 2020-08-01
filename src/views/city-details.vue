@@ -39,7 +39,7 @@
                   <div class="tile is-child box">
                     <div class="level columns is-mobile">
                       <div class="level-left column has-text-left">
-                        <strong>{{ day.date | formatLocaleDate }}</strong>
+                        <strong>{{ day.date | formatStringDate }}</strong>
                         <div class="column">{{ day.weatherText }}</div>
                       </div>
                       <div class="level-right level">
@@ -141,8 +141,8 @@ export default {
   },
   filters: {
     // formatting date to 'd/m/yyyy' format
-    formatLocaleDate: date => new Date(date).toLocaleDateString('en-MY'),
-    formatUTCDate: UTCdate => new Date(UTCdate * 1000).toLocaleDateString('en-MY'),
+    formatStringDate: date => new Date(date).toLocaleDateString('en-MY'),
+    formatUTCDate: UTCDate => new Date(UTCDate * 1000).toLocaleDateString('en-MY'),
   },
   data() {
     return {
@@ -190,9 +190,8 @@ export default {
 
     async getFlightOptions() {
       this.loading = true;
-      const formattedDateFrom = this.$options.filters.formatLocaleDate(this.flightDates[0]);
-      const formattedDateTo = this.$options.filters.formatLocaleDate(this.flightDates[1]);
-      const url = `/flights/info?flyFrom=${this.city.locationCode}&flyTo=${this.selectedCityTo}&dateFrom=${formattedDateFrom}&dateTo=${formattedDateTo}`;
+      const [from, to] = this.flightDates.map(this.$options.filters.formatStringDate);
+      const url = `/flights/info?flyFrom=${this.city.locationCode}&flyTo=${this.selectedCityTo}&dateFrom=${from}&dateTo=${to}`;
       this.flightOptions = await fetchData(url);
       this.noFlightsFound = !this.flightOptions.length;
       this.loading = false;

@@ -24,6 +24,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes,
   // always scroll to the tob of the page after routing
   scrollBehavior() {

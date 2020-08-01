@@ -5,13 +5,21 @@ async function fetchData(url, ...params) {
   return fetch(url, params).then(res => res.json());
 }
 
+/**
+ * Formats date to 'd/m/yyyy' format API is expecting
+ * @param {String} UTCDate
+ */
+function formatFlightDate(UTCDate) {
+  return new Date(parseInt(UTCDate, 10)).toLocaleDateString('en-MY');
+}
+
 async function getFlights(params) {
   const url = new URL('https://api.skypicker.com/flights');
   url.search = new URLSearchParams({
     fly_from: params.flyFrom,
     fly_to: params.flyTo,
-    date_from: params.dateFrom,
-    date_to: params.dateTo,
+    date_from: formatFlightDate(params.dateFrom),
+    date_to: formatFlightDate(params.dateTo),
     // TODO can extract this to client
     max_fly_duration: 10,
     adults: 1,

@@ -141,8 +141,8 @@ export default {
   },
   filters: {
     // formatting date to 'd/m/yyyy' format
-    formatStringDate: date => new Date(date).toLocaleDateString('en-MY'),
-    formatUTCDate: UTCDate => new Date(UTCDate * 1000).toLocaleDateString('en-MY'),
+    formatStringDate: date => new Date(date).toLocaleDateString(),
+    formatUTCDate: UTCDate => new Date(UTCDate * 1000).toLocaleString(),
   },
   data() {
     return {
@@ -190,8 +190,8 @@ export default {
 
     async getFlightOptions() {
       this.loading = true;
-      const [from, to] = this.flightDates.map(this.$options.filters.formatStringDate);
-      const url = `/flights/info?flyFrom=${this.city.locationCode}&flyTo=${this.selectedCityTo}&dateFrom=${from}&dateTo=${to}`;
+      const [from, to] = this.flightDates;
+      const url = `/flights/info?flyFrom=${this.city.locationCode}&flyTo=${this.selectedCityTo}&dateFrom=${from.getTime()}&dateTo=${to.getTime()}`;
       this.flightOptions = await fetchData(url);
       this.noFlightsFound = !this.flightOptions.length;
       this.loading = false;

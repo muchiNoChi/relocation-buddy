@@ -34,7 +34,7 @@
             <div class="media">
               <div class="media-left">
                 <figure class="image is-48x48">
-                  <img :src="'../assets/' + city.currentWeather.weatherIcon + '.png'">
+                  <img :src="'https://developer.accuweather.com/sites/default/files/' + (city.currentWeather.weatherIcon || 0).toString().padStart(2, '0') + '-s.png'">
                 </figure>
               </div>
               <div class="media-content">

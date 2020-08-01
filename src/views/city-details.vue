@@ -46,7 +46,7 @@
                         <!-- TODO REQUEST DATA IN CELSIUS -->
                         <span class="tag is-light">{{ day.temperature }}°F</span>
                         <p class="image is-64x64 level-right">
-                          <img :src="'../assets/' + day.weatherIcon + '.png'" />
+                          <img :src="'https://developer.accuweather.com/sites/default/files/' + (day.weatherIcon || 0).toString().padStart(2, '0') + '-s.png'" />
                         </p>
                       </div>
                     </div>
